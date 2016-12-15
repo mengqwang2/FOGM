@@ -45,7 +45,7 @@ def normalizer_pi(beta):
 
 if __name__ == "__main__":
     beta = np.empty((T, K, V))
-    theta = np.empty(N)
+    theta = np.empty(K)
     z = np.empty(N)
     beta[0] = beta_0
     document = np.empty((D, N))
