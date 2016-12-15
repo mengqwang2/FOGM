@@ -15,14 +15,11 @@ D = 20
 T = 3
 
 sigma = 3
-alpha = 2 ** np.random.randint(0, 4, size=(N, K))
+alpha = 2 ** np.random.randint(0, 4, size=(K))
 beta_0 = 2 ** np.random.randint(0, 3, size=(K, V))
 
 def generate_dirichlet(alpha):
-    d = np.empty(alpha.shape)
-    for k in range(len(alpha)):
-        d[k] = np.random.dirichlet(alpha[k])
-    return d
+    return np.random.dirichlet(alpha)
 
 def generate_multinomial(theta):
     z_prob = np.random.multinomial(1, theta)
@@ -59,7 +56,7 @@ if __name__ == "__main__":
         for d in range(D):
             theta = generate_dirichlet(alpha)
             for n in range(N):
-                z = generate_multinomial(theta[n])
+                z = generate_multinomial(theta)
                 word = generate_multinomial(beta[t][z])
                 document[d][n] = word
     print document
