@@ -48,7 +48,7 @@ if __name__ == "__main__":
     theta = np.empty(K)
     z = np.empty(N)
     beta[0] = beta_0
-    document = np.empty((D, N))
+    document = np.empty((T, D, N))
     for t in range(1, T):
         # generate beta (K * V)
         beta[t] = generate_mvn(beta[t - 1])
@@ -58,8 +58,8 @@ if __name__ == "__main__":
             for n in range(N):
                 z = generate_multinomial(theta)
                 word = generate_multinomial(beta[t][z])
-                document[d][n] = word
-    print document
+                document[t][d][n] = word
+    np.save('document.npy', document)
 
 
 
