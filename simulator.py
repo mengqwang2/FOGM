@@ -10,8 +10,8 @@ from scipy.stats import norm
 
 K = 5
 V = 7
-N = 10
-D = 20
+N = 5
+D = 10
 T = 3
 
 sigma = 3
@@ -44,12 +44,12 @@ def normalizer_pi(beta):
     return beta_normalized
 
 if __name__ == "__main__":
-    beta = np.empty((T, K, V))
+    beta = np.empty((T + 1, K, V))
     theta = np.empty(K)
     z = np.empty(N)
     beta[0] = beta_0
     document = np.empty((T, D, N))
-    for t in range(1, T):
+    for t in range(1, T + 1):
         # generate beta (K * V)
         beta[t] = generate_mvn(beta[t - 1])
         beta[t] = normalizer_pi(beta[t])
@@ -58,7 +58,7 @@ if __name__ == "__main__":
             for n in range(N):
                 z = generate_multinomial(theta)
                 word = generate_multinomial(beta[t][z])
-                document[t][d][n] = word
+                document[t - 1][d][n] = word
     np.save('document.npy', document)
 
 
